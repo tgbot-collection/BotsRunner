@@ -94,3 +94,11 @@ services:
     restart: on-failure
     volumes:
       - ./data/wp.json:/config.json
+      -
+  expressbot:
+    image: bennythink/expressbot
+    restart: on-failure
+    volumes:
+      - ./data/expressbot.db:/ExpressBot/expressbot/expressbot.db
+    env_file:
+      - env/expressbot.env

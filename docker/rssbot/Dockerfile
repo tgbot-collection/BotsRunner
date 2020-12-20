@@ -1,7 +1,5 @@
-FROM alpine
-
+FROM alpine as builder
 WORKDIR /
+RUN wget https://github.com/iovxw/rssbot/releases/download/v2.0.0-alpha.9/rssbot-zh-amd64-linux && chmod +x rssbot-zh-amd64-linux
 
-RUN wget https://github.com/iovxw/rssbot/releases/download/v2.0.0-alpha.9/rssbot-zh-amd64-linux
-
-CMD rssbot-zh-amd64-linux database.json
+ENTRYPOINT /rssbot-zh-amd64-linux -d /database.json "$TOKEN"

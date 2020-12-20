@@ -80,10 +80,14 @@ services:
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
   rssbot:
-    build: docker/rssbot/Dockerfile
+    build:
+      context: .
+      dockerfile: docker/rssbot/Dockerfile
     restart: on-failure
     volumes:
       - ./data/rssbot.json:/database.json
+    env_file:
+      - env/rssbot.env
 
   wp-comments:
     image: bennythink/wp-comments

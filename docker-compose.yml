@@ -81,8 +81,8 @@ services:
 
   rssbot:
     build:
-      context: .
-      dockerfile: docker/rssbot/Dockerfile
+      context: docker/rssbot
+      dockerfile: Dockerfile
     restart: on-failure
     volumes:
       - ./data/rssbot.json:/database.json

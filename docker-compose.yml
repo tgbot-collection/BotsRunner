@@ -79,3 +79,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
+  rssbot:
+    build: docker/rssbot/Dockerfile
+    restart: on-failure
+    volumes:
+      - ./data/rssbot.json:/database.json
+
+  wp-comments:
+    image: bennythink/wp-comments
+    restart: on-failure
+    volumes:
+      - ./data/wp.json:/config.json

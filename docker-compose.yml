@@ -94,7 +94,7 @@ services:
     restart: on-failure
     volumes:
       - ./data/wp.json:/config.json
-      -
+
   expressbot:
     image: bennythink/expressbot
     restart: on-failure

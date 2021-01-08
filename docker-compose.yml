@@ -23,7 +23,7 @@ services:
 
   archiver:
     image: bennythink/archiver
-    restart: on-failure
+    restart: always
     env_file:
       - env/archiver.env
 
@@ -38,7 +38,7 @@ services:
 
   teletweet: # this is only for bot
     image: bennythink/teletweet
-    restart: on-failure
+    restart: always
     volumes:
       - ./data/teletweet.enc:/TeleTweet/teletweet/database.enc
     env_file:
@@ -46,7 +46,7 @@ services:
 
   gakki:
     image: bennythink/dailygakki
-    restart: on-failure
+    restart: always
     volumes:
       - ./data/gakki.json:/database.json
       - /home/photos/:/photos/
@@ -83,7 +83,7 @@ services:
     build:
       context: docker/rssbot
       dockerfile: Dockerfile
-    restart: on-failure
+    restart: always
     volumes:
       - ./data/rssbot.json:/database.json
     env_file:
@@ -91,7 +91,7 @@ services:
 
   wp-comments:
     image: bennythink/wp-comments
-    restart: on-failure
+    restart: always
     volumes:
       - ./data/wp.json:/config.json
 

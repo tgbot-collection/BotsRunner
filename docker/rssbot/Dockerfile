@@ -1,7 +1,8 @@
 FROM rust:alpine as builder
 
 RUN apk update && apk add --no-cache git libc-dev ca-certificates tzdata && rustup install nightly && \
-    echo -e "#!/bin/sh \n/rssbot -d /database.json \${TOKEN}" > /entrypoint.sh && chmod +x /entrypoint.sh
+    echo -e "#!/bin/sh \n/rssbot --min-interval 900 -d /database.json \${TOKEN}" > /entrypoint.sh \
+    && chmod +x /entrypoint.sh
 
 RUN git clone https://github.com/iovxw/rssbot && cd rssbot && cargo +nightly build --release
 

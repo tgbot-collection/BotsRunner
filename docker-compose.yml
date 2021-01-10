@@ -29,12 +29,17 @@ services:
 
   yyets:
     image: bennythink/yyetsbot
-    restart: on-failure
+    depends_on:
+      - redis
+    restart: always
     env_file:
       - env/yyets.env
     volumes:
-      - ./data/yyets.dbm:/YYeTsBot/data/yyets.dbm
       - ./data/yyets.dump:/YYeTsBot/data/cookies.dump
+
+  redis:
+    image: redis:alpine
+    restart: always
 
   teletweet: # this is only for bot
     image: bennythink/teletweet
@@ -77,7 +82,7 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
+    entrypoint: ["socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock"]
 
   rssbot:
     build:
@@ -91,7 +96,7 @@ services:
 
   wp-comments:
     image: bennythink/wp-comments
-    restart: always
+    restart: on-failure
     volumes:
       - ./data/wp.json:/config.json
 

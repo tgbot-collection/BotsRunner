@@ -20,17 +20,22 @@ services:
     restart: on-failure
     working_dir: /NCMBot/ncmbot
     command: [ "/usr/local/bin/python","bot.py" ]
+    depends_on:
+      - socat
 
   archiver:
     image: bennythink/archiver
     restart: always
     env_file:
       - env/archiver.env
+    depends_on:
+      - socat
 
   yyets:
     image: bennythink/yyetsbot
     depends_on:
       - redis
+      - socat
     restart: always
     env_file:
       - env/yyets.env
@@ -48,6 +53,8 @@ services:
       - ./data/teletweet.enc:/TeleTweet/teletweet/database.enc
     env_file:
       - env/teletweet.env
+    depends_on:
+      - socat
 
   gakki:
     image: bennythink/dailygakki
@@ -57,6 +64,8 @@ services:
       - /home/photos/:/photos/
     env_file:
       - env/gakki.env
+    depends_on:
+      - socat
 
   keepme-docker:
     image: docker:dind
@@ -74,6 +83,7 @@ services:
     restart: on-failure
     depends_on:
       - keepme-docker
+      - socat
     volumes:
       - ./data/keep.db:/keep.db
 
@@ -99,6 +109,8 @@ services:
     restart: on-failure
     volumes:
       - ./data/wp.json:/config.json
+    depends_on:
+      - socat
 
   expressbot:
     image: bennythink/expressbot
@@ -107,3 +119,5 @@ services:
       - ./data/expressbot.db:/ExpressBot/expressbot/expressbot.db
     env_file:
       - env/expressbot.env
+    depends_on:
+      - socat

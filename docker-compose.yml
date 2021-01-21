@@ -40,7 +40,7 @@ services:
     env_file:
       - env/yyets.env
     volumes:
-      - ./data/yyets.dump:/YYeTsBot/data/cookies.dump
+      - ./data/yyets.dump:/YYeTsBot/yyets/data/cookies.dump
 
   redis:
     image: redis:alpine

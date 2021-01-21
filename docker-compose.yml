@@ -46,7 +46,7 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - ./data/redis.rdb:/data/redis.rdb
+      - ./data/:/data/
 
   teletweet: # this is only for bot
     image: bennythink/teletweet

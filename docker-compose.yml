@@ -45,6 +45,8 @@ services:
   redis:
     image: redis:alpine
     restart: always
+    volumes:
+      - ./data/redis.rdb:/data/redis.rdb
 
   teletweet: # this is only for bot
     image: bennythink/teletweet
@@ -92,7 +94,7 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    entrypoint: ["socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock"]
+    entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
   rssbot:
     build:

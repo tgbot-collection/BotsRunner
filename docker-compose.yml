@@ -49,7 +49,6 @@ services:
     restart: on-failure
     env_file:
       - env/yyets.env
-      - env/ncmbot.env
     working_dir: /YYeTsBot/health_check
     command: [ "python", "check.py" ]
     volumes:

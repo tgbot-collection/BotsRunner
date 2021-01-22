@@ -46,7 +46,13 @@ services:
     image: redis:alpine
     restart: always
     volumes:
-      - ./data/:/data/
+      - ./data/dump.rdb:/data/dump.rdb
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./data/mongodb:/data/db
 
   teletweet: # this is only for bot
     image: bennythink/teletweet

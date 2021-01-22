@@ -1,0 +1,1 @@
+this directory stores the data for mongodb

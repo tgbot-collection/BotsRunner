@@ -42,6 +42,20 @@ services:
     volumes:
       - ./data/yyets.dump:/YYeTsBot/yyetsbot/data/cookies.dump
 
+  health-check:
+    image: bennythink/yyetsbot
+    depends_on:
+      - yyets
+    restart: on-failure
+    env_file:
+      - env/yyets.env
+      - env/ncmbot.env
+    working_dir: /YYeTsBot/health_check
+    command: [ "python", "check.py" ]
+    volumes:
+      - ./data/client.session:/YYeTsBot/health_check/client.session
+
+
   redis:
     image: redis:alpine
     restart: always

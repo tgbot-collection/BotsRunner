@@ -59,8 +59,6 @@ services:
   redis:
     image: redis:alpine
     restart: always
-    volumes:
-      - ./data/dump.rdb:/data/dump.rdb
 
   mongo:
     image: mongo

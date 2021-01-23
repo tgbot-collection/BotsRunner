@@ -53,7 +53,7 @@ services:
     working_dir: /YYeTsBot/health_check
     command: [ "python", "check.py" ]
     volumes:
-      - ./data/client.session:/YYeTsBot/health_check/client.session
+      - ./data/client-hc.session:/YYeTsBot/health_check/client-hc.session
 
 
   redis:

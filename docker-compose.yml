@@ -31,7 +31,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
-  ncmbot-bot:
+  ncmbot:
     image: bennythink/ncmbot
     env_file:
       - env/ncmbot.env

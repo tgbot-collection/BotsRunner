@@ -133,3 +133,11 @@ services:
       - ./data/shredder.json:/settings.json
     depends_on:
       - redis
+
+  ytdl:
+    image: bennythink/ytdl-bot
+    env_file:
+      - env/ytdl.env
+    restart: always
+    depends_on:
+      - socat

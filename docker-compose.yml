@@ -7,13 +7,13 @@ services:
     logging:
       driver: none
 
-  mongo:
-    image: mongo
-    restart: always
-    volumes:
-      - ./data/mongodb:/data/db
-    logging:
-      driver: none
+#  mongo:
+#    image: mongo
+#    restart: always
+#    volumes:
+#      - ./data/mongodb:/data/db
+#    logging:
+#      driver: none
 
   keepme-docker:
     image: docker:dind
@@ -55,7 +55,7 @@ services:
     depends_on:
       - redis
       - socat
-      - mongo
+#      - mongo
     restart: always
     env_file:
       - env/yyets.env

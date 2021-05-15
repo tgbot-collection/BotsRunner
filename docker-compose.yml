@@ -139,5 +139,15 @@ services:
     env_file:
       - env/ytdl.env
     restart: always
+    volumes:
+      - tmpfs:/tmp
     depends_on:
       - socat
+
+volumes:
+  tmpfs:
+    driver: local
+    driver_opts:
+      o: "size=10240m"
+      device: tmpfs
+      type: tmpfs

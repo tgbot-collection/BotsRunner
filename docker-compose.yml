@@ -1,31 +1,10 @@
 version: '3.1'
 
 services:
-  redis:
-    image: redis:alpine
-    restart: always
-    logging:
-      driver: none
-
-#  mongo:
-#    image: mongo
-#    restart: always
-#    volumes:
-#      - ./data/mongodb:/data/db
-#    logging:
-#      driver: none
-
-  keepme-docker:
-    image: docker:dind
-    restart: on-failure
-    environment:
-      DOCKER_TLS_CERTDIR:
-    privileged: true
-    logging:
-      driver: none
-
   socat:
-    image: alpine/socat
+    build:
+      context: docker/socat
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -41,98 +20,6 @@ services:
     working_dir: /NCMBot
     depends_on:
       - socat
-
-  archiver:
-    image: bennythink/archiver
-    restart: always
-    env_file:
-      - env/archiver.env
-    depends_on:
-      - socat
-
-  yyets:
-    image: bennythink/yyetsbot
-    depends_on:
-      - redis
-      - socat
-#      - mongo
-    restart: always
-    env_file:
-      - env/yyets.env
-    volumes:
-      - ./data/yyets.dump:/YYeTsBot/yyetsbot/data/cookies.dump
-
-  teletweet: # this is only for bot
-    image: bennythink/teletweet
-    restart: always
-    volumes:
-      - ./data/teletweet.enc:/TeleTweet/teletweet/database.enc
-    env_file:
-      - env/teletweet.env
-    depends_on:
-      - socat
-
-  gakki:
-    image: bennythink/dailygakki
-    restart: always
-    volumes:
-      - ./data/gakki.json:/database.json
-      - /home/photos/:/photos/
-    env_file:
-      - env/gakki.env
-    depends_on:
-      - socat
-
-  keepme-runner:
-    image: bennythink/keepmebot
-    environment:
-      DOCKER_HOST: tcp://keepme-docker:2375
-    env_file:
-      - env/keepme.env
-    restart: on-failure
-    depends_on:
-      - keepme-docker
-      - socat
-    volumes:
-      - ./data/keep.db:/keep.db
-
-  rssbot:
-    build:
-      context: docker/rssbot
-      dockerfile: Dockerfile
-    restart: always
-    volumes:
-      - ./data/rssbot.json:/database.json
-    env_file:
-      - env/rssbot.env
-
-  wp-comments:
-    image: bennythink/wp-comments
-    restart: always
-    volumes:
-      - ./data/wp.json:/config.json
-    depends_on:
-      - socat
-
-  expressbot:
-    image: bennythink/expressbot
-    restart: on-failure
-    volumes:
-      - ./data/expressbot.db:/ExpressBot/expressbot/expressbot.db
-    env_file:
-      - env/expressbot.env
-    depends_on:
-      - socat
-
-  shredder:
-    image: bennythink/shredder
-    restart: on-failure
-    env_file:
-      - env/shredder.env
-    volumes:
-      - ./data/shredder.json:/settings.json
-    depends_on:
-      - redis
 
   ytdl:
     image: bennythink/ytdl-bot

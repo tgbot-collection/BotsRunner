@@ -97,9 +97,7 @@ services:
       - ./data/keep.db:/keep.db
 
   rssbot:
-    build:
-      context: docker/rssbot
-      dockerfile: Dockerfile
+    image: bennythink/rssbot
     restart: always
     volumes:
       - ./data/rssbot.json:/database.json

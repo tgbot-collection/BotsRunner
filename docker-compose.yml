@@ -2,9 +2,7 @@ version: '3.1'
 
 services:
   socat:
-    build:
-      context: docker/socat
-      dockerfile: Dockerfile
+    image: alpine/socat
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

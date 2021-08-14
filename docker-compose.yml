@@ -8,6 +8,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
+  redis:
+    image: redis:alpine
+    restart: always
+    logging:
+      driver: none
+
   ncmbot:
     image: bennythink/ncmbot
     env_file:
@@ -20,9 +26,12 @@ services:
       - socat
 
   ytdl:
-    image: bennythink/ytdl-bot
+    image: bennythink/ytdl
     env_file:
       - env/ytdl.env
+    volumes:
+      - ./data/vip.sqlite:/ytdlbot/vip.sqlite
     restart: always
     depends_on:
       - socat
+      - redis

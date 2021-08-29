@@ -26,7 +26,7 @@ services:
       - socat
 
   ytdl:
-    image: bennythink/ytdl
+    image: bennythink/ytdlbot
     env_file:
       - env/ytdl.env
     volumes:

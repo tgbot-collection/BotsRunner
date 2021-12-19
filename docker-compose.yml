@@ -137,7 +137,7 @@ services:
     env_file:
       - env/ytdl.env
     volumes:
-      - ./data/instagram.com_cookies.txt:/ytdl/instagram.com_cookies.txt
+      - ./data/instagram.com_cookies.txt:/ytdlbot/instagram.com_cookies.txt
     restart: always
     depends_on:
       - socat

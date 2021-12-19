@@ -136,6 +136,8 @@ services:
     image: bennythink/ytdl-bot
     env_file:
       - env/ytdl.env
+    volumes:
+      - ./data/instagram.com_cookies.txt:/ytdl/instagram.com_cookies.txt
     restart: always
     depends_on:
       - socat

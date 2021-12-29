@@ -31,17 +31,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
-  ncmbot:
-    image: bennythink/ncmbot
-    env_file:
-      - env/ncmbot.env
-    volumes:
-      - ./data/bot.session:/NCMBot/bot.session
-    restart: always
-    working_dir: /NCMBot
-    depends_on:
-      - socat
-
   archiver:
     image: bennythink/archiver
     restart: always
@@ -131,16 +120,6 @@ services:
       - ./data/shredder.json:/settings.json
     depends_on:
       - redis
-
-  ytdl:
-    image: bennythink/ytdl-bot
-    env_file:
-      - env/ytdl.env
-    volumes:
-      - ./data/instagram.com_cookies.txt:/ytdlbot/instagram.com_cookies.txt
-    restart: always
-    depends_on:
-      - socat
 
   idbot:
     image: bennythink/idbot

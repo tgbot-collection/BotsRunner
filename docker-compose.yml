@@ -7,14 +7,6 @@ services:
     logging:
       driver: none
 
-#  mongo:
-#    image: mongo
-#    restart: always
-#    volumes:
-#      - ./data/mongodb:/data/db
-#    logging:
-#      driver: none
-
   keepme-docker:
     image: docker:dind
     restart: on-failure
@@ -31,6 +23,17 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
 
+  ncmbot:
+    image: bennythink/ncmbot
+    env_file:
+      - env/ncmbot.env
+    volumes:
+      - ./data/bot.session:/NCMBot/bot.session
+    restart: always
+    working_dir: /NCMBot
+    depends_on:
+      - socat
+
   archiver:
     image: bennythink/archiver
     restart: always
@@ -44,7 +47,6 @@ services:
     depends_on:
       - redis
       - socat
-#      - mongo
     restart: always
     env_file:
       - env/yyets.env
@@ -126,3 +128,14 @@ services:
     restart: on-failure
     env_file:
       - env/idbot.env
+
+  ytdl:
+    image: bennythink/ytdlbot
+    env_file:
+      - env/ytdl.env
+    volumes:
+      - ./data/instagram.com_cookies.txt:/ytdlbot/instagram.com_cookies.txt
+    restart: always
+    depends_on:
+      - socat
+      - redis

@@ -129,14 +129,3 @@ services:
     env_file:
       - env/idbot.env
 
-  ytdl:
-    image: bennythink/ytdlbot
-    env_file:
-      - env/ytdl.env
-    volumes:
-      - ./data/instagram.com_cookies.txt:/ytdlbot/instagram.com_cookies.txt
-      - ./data/vnstat/:/var/lib/vnstat/
-    restart: always
-    depends_on:
-      - socat
-      - redis

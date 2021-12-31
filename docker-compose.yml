@@ -94,6 +94,8 @@ services:
       - ./data/rssbot.json:/database.json
     env_file:
       - env/rssbot.env
+    logging:
+      driver: none
 
   wp-comments:
     image: bennythink/wp-comments

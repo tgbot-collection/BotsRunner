@@ -130,14 +130,3 @@ services:
     restart: on-failure
     env_file:
       - env/idbot.env
-
-  ytdl:
-    image: bennythink/ytdlbot
-    env_file:
-      - env/ytdl.env
-    volumes:
-      - ./data/vnstat:/var/lib/vnstat
-    restart: always
-    depends_on:
-      - socat
-      - redis

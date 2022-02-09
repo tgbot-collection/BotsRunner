@@ -91,7 +91,7 @@ services:
     image: bennythink/rssbot
     restart: always
     volumes:
-      - ./data/rssbot.json:/database.json
+      - ./data/:/root/
     env_file:
       - env/rssbot.env
     logging:

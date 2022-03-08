@@ -68,7 +68,7 @@ services:
     restart: always
     volumes:
       - ./data/gakki.json:/database.json
-      - /home/photos/:/photos/
+      - ../photos/:/photos/
     env_file:
       - env/gakki.env
     depends_on:

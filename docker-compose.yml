@@ -17,7 +17,7 @@ services:
       driver: none
 
   socat:
-    image: alpine/socat
+    image: bennythink/socat
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

@@ -130,3 +130,11 @@ services:
     restart: on-failure
     env_file:
       - env/idbot.env
+
+  captcha:
+    image: bennythink/captchabot
+    env_file:
+      - env/captcha.env
+    restart: always
+    depends_on:
+      - redis

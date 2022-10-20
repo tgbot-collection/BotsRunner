@@ -138,3 +138,10 @@ services:
     restart: always
     depends_on:
       - redis
+
+
+  stickers:
+    image: bennythink/stickers
+    env_file:
+      - env/stickers.env
+    restart: always

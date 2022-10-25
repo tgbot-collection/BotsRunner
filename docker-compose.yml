@@ -115,16 +115,6 @@ services:
     depends_on:
       - socat
 
-  shredder:
-    image: bennythink/shredder
-    restart: on-failure
-    env_file:
-      - env/shredder.env
-    volumes:
-      - ./data/shredder.json:/settings.json
-    depends_on:
-      - redis
-
   idbot:
     image: bennythink/idbot
     restart: on-failure
@@ -138,7 +128,6 @@ services:
     restart: always
     depends_on:
       - redis
-
 
   stickers:
     image: bennythink/stickers

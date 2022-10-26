@@ -2,19 +2,11 @@ version: '3.1'
 
 services:
   redis:
-    image: redis:alpine
+    image: redis:7-alpine
     restart: always
     logging:
       driver: none
 
-  keepme-docker:
-    image: docker:dind
-    restart: on-failure
-    environment:
-      DOCKER_TLS_CERTDIR:
-    privileged: true
-    logging:
-      driver: none
 
   socat:
     image: bennythink/socat
@@ -73,19 +65,6 @@ services:
       - env/gakki.env
     depends_on:
       - socat
-
-  keepme-runner:
-    image: bennythink/keepmebot
-    environment:
-      DOCKER_HOST: tcp://keepme-docker:2375
-    env_file:
-      - env/keepme.env
-    restart: on-failure
-    depends_on:
-      - keepme-docker
-      - socat
-    volumes:
-      - ./data/keep.db:/keep.db
 
   rssbot:
     image: bennythink/rssbot

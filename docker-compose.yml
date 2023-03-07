@@ -7,7 +7,6 @@ services:
     logging:
       driver: none
 
-
   socat:
     image: bennythink/socat
     restart: always
@@ -33,17 +32,6 @@ services:
       - env/archiver.env
     depends_on:
       - socat
-
-  yyets:
-    image: bennythink/yyetsbot
-    depends_on:
-      - redis
-      - socat
-    restart: always
-    env_file:
-      - env/yyets.env
-    volumes:
-      - ./data/yyets.dump:/YYeTsBot/yyetsbot/data/cookies.dump
 
   teletweet: # this is only for bot
     image: bennythink/teletweet

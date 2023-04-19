@@ -9,7 +9,7 @@ services:
 
   socat:
     image: bennythink/socat
-    restart: always
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: [ "socat", "tcp-listen:2375,fork,reuseaddr","unix-connect:/var/run/docker.sock" ]
@@ -20,14 +20,14 @@ services:
       - env/ncmbot.env
     volumes:
       - ./data/bot.session:/NCMBot/bot.session
-    restart: always
+    restart: unless-stopped
     working_dir: /NCMBot
     depends_on:
       - socat
 
   archiver:
     image: bennythink/archiver
-    restart: always
+    restart: unless-stopped
     env_file:
       - env/archiver.env
     depends_on:
@@ -45,7 +45,7 @@ services:
 
   gakki:
     image: bennythink/dailygakki
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./data/gakki.json:/database.json
       - ../photos/:/photos/
@@ -56,7 +56,7 @@ services:
 
   rssbot:
     image: bennythink/rssbot
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./data/:/root/
     env_file:
@@ -74,7 +74,7 @@ services:
 
   expressbot:
     image: bennythink/expressbot
-    restart: on-failure
+    restart: unless-stopped
     volumes:
       - ./data/expressbot.db:/ExpressBot/expressbot/expressbot.db
     env_file:
@@ -84,7 +84,7 @@ services:
 
   idbot:
     image: bennythink/idbot
-    restart: on-failure
+    restart: unless-stopped
     env_file:
       - env/idbot.env
 
@@ -92,7 +92,7 @@ services:
     image: bennythink/captchabot
     env_file:
       - env/captcha.env
-    restart: always
+    restart: unless-stopped
     depends_on:
       - redis
 
@@ -100,4 +100,4 @@ services:
     image: bennythink/stickers
     env_file:
       - env/stickers.env
-    restart: always
+    restart: unless-stopped

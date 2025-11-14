@@ -32,6 +32,11 @@ services:
       - env/archiver.env
     depends_on:
       - socat
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+
 
   teletweet: # this is only for bot
     image: bennythink/teletweet

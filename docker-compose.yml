@@ -6,7 +6,8 @@ services:
     restart: always
     logging:
       driver: none
-
+    ports:
+      - "127.0.0.1:6379:6379"
   socat:
     image: bennythink/socat
     restart: unless-stopped
@@ -37,12 +38,11 @@ services:
         limits:
           memory: 2g
 
-
   teletweet: # this is only for bot
     image: bennythink/teletweet
     restart: always
     volumes:
-      - ./data/teletweet.enc:/TeleTweet/teletweet/database.enc
+      - ./data/teletweet.json:/TeleTweet/teletweet/auth.json
     env_file:
       - env/teletweet.env
     depends_on:
@@ -66,8 +66,6 @@ services:
       - ./data/:/root/
     env_file:
       - env/rssbot.env
-    logging:
-      driver: none
 
   wp-comments:
     image: bennythink/wp-comments
